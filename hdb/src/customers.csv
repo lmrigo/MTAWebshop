@@ -1,0 +1,51 @@
+customer_id,company_name,legal_form,firstname,lastname,date_of_birth,city,postal_code,street,building,country,description,phone_number,email_address,web_address
+0000000001,ITelO,Inc.,Viola,Gains,19801231,"Antioch, Illinois",60002,Spring Garden Street,143,US,Main Address,1029384756,viola.gains@itelo.info,http://www.itelo.info
+0000000002,ITelO,Inc.,Paul,Burke,19811224,"Los Angeles, California",90067,Main Street,100,US,Main Address,1029384757,paul.burke@itelo.info,http://www.itelo.info
+0000000003,ITelO,SA,Sally,Spring,19791224,Rome,164,Piazza Adriana,53,IT,Main Address,1029384758,sally.spring@itelo.info,http://www.itelo.info
+0000000004,ITelO,Inc.,Sue,Bay,19811221,"Antioch, Illinois",60002,Spring Garden Street,143,US,Main Address,1029384759,sue.bay@itelo.info,http://www.itelo.info
+0000000005,ITelO,GmbH,James,Field,19801224,Munich,80809,Olympia Park,10,DE,Main Address,1029384750,james.field@itelo.info,http://www.itelo.info
+0000000006,SAP,AG,Karl,Muller,19811024,Walldorf,69190,Dietmar-Hopp-Allee,15,DE,Main Address Building WDF01,622734567,karl.mueller@sap.com,http://www.sap.com
+0000000007,Becker Berlin,GmbH,Dagmar,Schulze,19810921,Berlin,13467,Calvinstrasse,36,DE,Main Address,3088530,dagmar.schulze@beckerberlin.de,http://www.beckerberlin.de
+0000000008,DelBont Industries,Ltd.,Maria,Brown,19811224,"Wilmington, Delaware",19899,1 2345 King Street,1,US,Main Address,3023352668,maria.brown@delbont.com,http://www.delbont.com
+0000000009,Talpa,GmbH,Saskia,Sommer,19811011,Hannover,30625,An der Breiten Wiese,422,DE,Main Address,511403266,saskia.sommer@talpa-hannover.de,http://www.talpa-hannover.de
+0000000010,Panorama Studios,Inc.,Bob,Buyer,19811011,"Hollywood, California",91602,Morning Drive,178,US,Main Address,2244668800,bob.buyer@panorama-studios.biz,http://www.panorama-studios.biz
+0000000011,TECUM,AG,Bart,Koenig,19711011,Muenster,48155,Albersloher Weg,24,DE,Main Address,2511415,bart.koenig@tecum-ag.de,http://www.tecum-ag.de
+0000000012,Asia High tech,Inc.,Yoko,Nakamura,19711011,Tokyo,1000004,1-7-2 Ohtemachi,1,JP,Main Address,9078563412,yoko.nakamura@asia-ht.com,http://www.asia-ht.com
+0000000013,Laurent,S.A.,Sophie,Ribery,19711011,Paris,75015,Rue de la Republique 863,1,FR,Main Address,149744423,sophie.ribery@laurent-paris.com,http://www.laurent-paris.com
+0000000014,AVANTEL,S.A.,Victor,Sanchez,19611019,Mexiko City,17000,Bosque de Duraznos,24,MX,Main Address,7257716,victor.sanchez@avantel.com,http://www.avantel.com
+0000000015,Telecomunicaciones Star,S.A.,Jorge,Velez,19611019,Buenos Aires,1511,Av. Libertador,12221,AR,Main Address,1133557799,jorge.velez@telecomunicacionesstar.com,http://www.telecomunicacionesstar.com
+0000000016,Pear Computing Services,Inc.,Franklin,Jones,19611019,"Atlanta, Georgia",30338,Dunwoody Xing,3000,US,Main Address,6789012345,franklin.jones@pear-computing.com,http://www.pear-computing.com
+0000000017,Alpine Systems,AG,Joseph,Gschwandtner,19611119,Salzburg,5010,Arnold Schwarzenegger Weg,54,AT,Main Address,6623612804,joseph_gschwandtner@alp-systems.at,http://www.alp-systems.at
+0000000018,New Line Design,Ltd.,George,Grant,19611119,Manchester,M4 8RE,Kelley Street,97,GB,Main Address,2589436180,george_d_grant@newlinedesign.co.uk,http://www.newlinedesign.co.uk
+0000000019,HEPA Tec,GmbH,Sarah,Schwind,19650119,Bremen,28213,Theodor Heuss Allee,43,DE,Main Address,4507867136,sarah.schwind@hepa-tec.de,http://www.hepa-tec.de
+0000000020,Anav Ideon,Ltd.,Theodor,Monathy,19650119,"Bismarck, North Dakota",58501,Franklin Ave,153,US,Main Address,5850428367,theodor.monathy@anavideon.com,http://www.anavideon.com
+0000000021,Robert Brown Entertainment,Ltd.,Robert,Brown,19650529,Quebec,J0L 1T0,Rue Sault Au Matelot,65,CA,Main Address,7609448173,robert_brown@rb-entertainment.ca,http://www.rb-entertainment.ca
+0000000022,Mexican Oil Trading Company,S.A.,Jorge,Montalban,19750119,Puebla,40615,Av. Hermanos Serdan,366,MX,Main Address,6879342945,jorgemontalban@motc.mx,http://www.motc.mx
+0000000023,Meliva,AG,Johanna,Esther,19750119,Köln,50827,Robert Koch Straße,14,DE,Main Address,2208791738,johanna.esther@meliva.de,http://www.meliva.de
+0000000024,Compostela,S.A.,Miguel,Luengo,19750119,Mendoza,M5500,Avenida De Julio,53,AR,Main Address,4440238917,miguel.luengo@compostela.ar,http://www.compostela.ar
+0000000025,Pateu,S.A.R.L.,Isabel,Nemours,19850919,Lyon,69007,Quai de Pierre Scize,81,FR,Main Address,6328490087,isabel.nemours@pateu.fr,http://www.pateu.fr
+0000000026,Russian Electronic Trading Company,z.a.o.,Igor,Tarassow,19850919,Moskau,125719,Elektrosawodskaja,354,RU,Main Address,4050378468,igor.tarassow@retc.ru,http://www.retc.ru
+0000000027,Florida Holiday Company,Inc.,Alexis,Harper,19850919,"Jacksonville, Florida",32229,Marshall Street,77,US,Main Address,6065470312,alexis.harper@flor-hc.com,http://www.flor-hc.com
+0000000028,Quimica Madrilenos,S.A.,Cristal,Alfaro,19550909,Madrid,17000,Calle Aldama,137,ES,Main Address,7980023486,c.alfaro@quimica-madrilenos.es,http://www.quimica-madrilenos.es
+0000000029,Getränkegroßhandel Janssen,GmbH,Sven,Janssen,19550909,München,80935,Albert Schweitzer Straße,16,DE,Main Address,3629731486,sven.j@getraenke-janssen.de,http://www.getraenke-janssen.de
+0000000030,JaTeCo,Inc.,Yoshiko,Kakuji,19550909,Sapporo,608611,Narashino-Shi,51,JP,Main Address,3206580974,yoshiko.kakuji@jateco.jp,http://www.jateco.jp
+0000000031,Tessile Casa Di Roma,Srl,Alessio,Galasso,19780409,Rom,185,Via San Martino della Battaglia,63,IT,Main Address,4580963184,alessio.galasso@tcdr.it,http://www.tcdr.it
+0000000032,Vente Et Réparation de Ordinateur,S.A.R.L.,Romain,Le Mason,19780409,Paris,75013,Rue Lourmel,42,FR,Main Address,1012697341,romain.le_mason@verdo.fr,http://www.verdo.fr
+0000000033,Developement Para O Governo,S.A.,Martha,Calcagno,19780409,Santa Fe,1510,de Enero,85,AR,Main Address,7345697824,martha.calcagno@dpg.ar,http://www.dpg.ar
+0000000034,Brazil Technologies,S.A.,Beatriz,da Silva,19880505,Rio de Janeiro,20230,Rua do Passeio,7,BR,Main Address,469614115,beatriz.da_silva@brazil-tec.br,http://www.brazil-tec.br
+0000000035,C.R.T.U.,Ltd.,Anthony,Leboeuf,19880509,Montreal,H2Y 1N3,Avenue du Mont-Royal Est,63,CA,Main Address,6839542781,anthony.lebouef@crtu.ca,http://www.crtu.ca
+0000000036,Jologa,GmbH,Lisa,Felske,19880707,Zürich,2564,Paul-Clairmont-Straße,23,CH,Main Address,6714954542,lisa.felske@jologa.ch,http://www.jologa.ch
+0000000037,Baleda,Inc.,Jonathan,Mason,19880707,"Dallas, Texas",75364,McKinney Ave,2407,US,Main Address,2483693027,jonathan.d.mason@baleda.com,http://www.baleda.com
+0000000038,Angeré,S.A.R.L.,Amélie,Troyat,19880707,Paris,75018,Rue de Rivoli,143,FR,Main Address,2094573421,amelie.troyat@angere.fr,http://www.angere.fr
+0000000039,PC Gym Tec,Inc.,Pete,Waltham,19880707,"Chicago, Illinois",60773,North Michigan Avenue,50,US,Main Address,4136278910,pete_waltham@pc-gym-tec.com,http://www.pc-gym-tec.com
+0000000040,Japan Insurance Partner,Inc.,Ryu,Toshiro,19830705,Tokyo,1000003,4-2-8- Shibakoen,73,JP,Main Address,3540671320,ryu.toshiro@jip.jp,http://www.jip.jp
+0000000041,Entertainment Argentinia,S.A.,José,Lopez,19830705,Buenos Aires,1511,Villanueva,87,AR,Main Address,7315064077,jose-lopez@en-ar.ar,http://www.en-ar.ar
+0000000042,African Gold And Diamant Corporation,Ltd.,Dahoma,Lawla,19820905,Johannesburg,2006,Bay View Ave,45,ZA,Main Address,4381762683,dahoma.lawla@agadc.co.za,http://www.agadc.co.za
+0000000043,PicoBit,Inc.,Jefferson,Parker,19820905,New York City,10184,Fith Avenue,1843,US,Main Address,9703586412,jefferson.parker@pico-bit.com,http://www.pico-bit.com
+0000000044,Bionic Research Lab,AG,Tamara,Flaig,19820905,Bühl,77815,Hauptstraße,12,DE,Main Address,6843585642,tamara.flaig@brl-ag.de,http://www.brl-ag.de
+0000000045,Indian IT Trading Company,Ltd.,Sunita,Kapoor,19900905,Mumbai,400021,Nariman Point,11,IN,Main Address,4203876954,sunita-kapoor@it-trade.in,http://www.it-trade.in
+0000000046,Chemia A Technicznie Fabryka,Sp.z.o.o.,Pawel,Lewandowski,19900905,Warschau,564,Koszykowa,28,PL,Main Address,8367920106,pawel-lewandoski@catf.pl,http://www.catf.pl
+0000000047,South American IT Company,S.A.,Laura,Campillo,19890905,Cordoba,5003,Av. Ambrosio Olmos,297,AR,Main Address,1438907230,laura.campillo@saitc.ar,http://www.saitc.ar
+0000000048,Siwusha,CJV,Jian,Si,19890905,Shanghai,610041,Shui Dian,37,CN,Main Address,7412697340,jian.si@siwusha.cn,http://www.siwusha.cn
+0000000049,Danish Fish Trading Company,A/S,Frederik,Christensen,19860305,Kopenhagen,1907,Stockholmsgade,79,DK,Main Address,3102050749,frederik.christensen@dftc.dk,http://www.dftc.dk
+0000000050,Sorali,AG,Mirjam,Schmidt,19860305,Karlsruhe,76188,Rubensstraße,140,DE,Main Address,3102050749,mirjam.schmidt@sorali.de,http://www.sorali.de

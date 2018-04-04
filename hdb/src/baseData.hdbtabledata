@@ -1,0 +1,41 @@
+{ 
+  "format_version": 1, 
+  "imports": 
+  [ { 
+		"target_table": "ESPM.Products", 
+		"source_data" : { "data_type" : "CSV", "file_name" : "products.csv", "has_header" : true }, 
+		"import_settings" : { "import_columns" : [ "ProductId","Category","CategoryName","Weight","WeightUnit","LongDescription","ShortDescription","Name","PictureUrl","Price","DimensionWidth","DimensionDepth","DimensionHeight","DimensionUnit","CurrencyCode","QuantityUnit" ] }, 
+		"column_mappings" : { "ProductId": "product_id", "Category": "category_id", "CategoryName": "category_id", "Weight": "weight_measure", "WeightUnit": "weight_unit", "LongDescription": "description", "ShortDescription": "description", "Name": "name", "PictureUrl": "web_adress", "Price": "price", "DimensionWidth": "dimensions_width", "DimensionDepth": "dimensions_depth", "DimensionHeight": "dimensions_height", "DimensionUnit": "dimensions_unit", "CurrencyCode": "currency_code", "QuantityUnit": "measure_unit","SupplierId":{"type":"function","name":"range","parameters":{"increment_by":"1","start_with":"0000000001"}} } 
+	},
+	{ 
+		"target_table": "ESPM.ProductCategories", 
+		"source_data" : { "data_type" : "CSV", "file_name" : "product_categories.csv", "has_header" : true }, 
+		"import_settings" : { "import_columns" : [ "MainCategory","MainCategoryName","Category","CategoryName"] }, 
+		"column_mappings" : { "MainCategory":"main_category","MainCategoryName":"main_category", "Category":"category","CategoryName":"category" } 
+	},
+	{ 
+		"target_table": "ESPM.Suppliers", 
+		"source_data" : { "data_type" : "CSV", "file_name" : "customers.csv", "has_header" : true }, 
+		"import_settings" : { "import_columns" : ["SupplierId","City","Country","EmailAddress","HouseNumber","PhoneNumber","PostalCode","Street","SupplierName"] }, 
+		"column_mappings" : {"SupplierId":"customer_id","City":"city","Country":"country","EmailAddress":"email_address","HouseNumber":"building","PhoneNumber":"phone_number","PostalCode":"postal_code","Street":"street","SupplierName":"company_name"}
+	},
+	{ 
+		"target_table": "ESPM.Customers", 
+		"source_data" : { "data_type" : "CSV", "file_name" : "customers.csv", "has_header" : true }, 
+		"import_settings" : { "import_columns" : ["CustomerId","City","Country","DateOfBirth","EmailAddress","FirstName","HouseNumber","LastName","PhoneNumber","PostalCode","Street"] }, 
+		"column_mappings" : {"CustomerId":"customer_id","City":"city","Country":"country","DateOfBirth":"date_of_birth","EmailAddress":"email_address","FirstName":"firstname","HouseNumber":"building","LastName":"lastname","PhoneNumber":"phone_number","PostalCode":"postal_code","Street":"street"} 
+	},
+	{ 
+		"target_table": "ESPM.CustomerReviews", 
+		"source_data" : { "data_type" : "CSV", "file_name" : "customer_reviews.csv", "has_header" : true }, 
+		"import_settings" : { "import_columns" : [ "CustomerReviewId","Comment","CreationDate","FirstName","LastName","ProductId","Rating"] }, 
+		"column_mappings" : { "CustomerReviewId":{"type":"function","name":"range","parameters":{"increment_by":"1","start_with":"3001"}},"Comment":"comment","CreationDate":"creationdate","FirstName":"firstname","LastName":"lastname","Rating":"rating","ProductId":"product_id" } 
+	},
+	{ 
+		"target_table": "ESPM.Stocks", 
+		"source_data" : { "data_type" : "CSV", "file_name" : "stocks.csv", "has_header" : true }, 
+		"import_settings" : { "import_columns" : [ "ProductId","LotSize","MinStock","Quantity","QuantityLessMin"] }, 
+		"column_mappings" : { "ProductId":"product_id","LotSize":"lot_size","MinStock":"min_stock","Quantity":"quantity","QuantityLessMin":"quantity_less_min" } 
+	}
+  ] 
+}

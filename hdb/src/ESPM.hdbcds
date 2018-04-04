@@ -1,0 +1,108 @@
+context ESPM {
+entity Products {
+ key ProductId : String(10);
+ Category : String(40);
+ CategoryName : String(40);
+ CurrencyCode : String(5);
+ DimensionDepth : Decimal(13,3);
+ DimensionHeight : Decimal(13,3);
+ DimensionUnit : String(3);
+ DimensionWidth : Decimal(13,3);
+ LongDescription : String(255);
+ Name : String(255);
+ PictureUrl : String(255);
+ Price : Decimal(23,2);
+ QuantityUnit : String(3);
+ ShortDescription : String(255);
+ SupplierId : String(10);
+ Weight : Decimal(13,3);
+ WeightUnit : String(3);
+ Reviews : association [*] to CustomerReviews on Reviews.ProductId = ProductId;
+ Supplier : association [1] to Suppliers on Supplier.SupplierId = SupplierId;
+};
+entity ProductCategories {
+ key "Category" : String(40);
+ CategoryName : String(40);
+ MainCategory : String(40);
+ MainCategoryName : String(40);
+ NumberOfProducts : Integer;
+};
+entity ProductTexts {
+ key Id : Integer;
+ Language : String(2);
+ LongDescription : String(255);
+ Name : String(255);
+ ProductId : String(10);
+ ShortDescription : String(255);
+};
+entity Suppliers {
+ key SupplierId : String(10);
+ City : String(40);
+ Country : String(3);
+ EmailAddress : String(255);
+ HouseNumber : String(10);
+ PhoneNumber : String(30);
+ PostalCode : String(10);
+ Street : String(60);
+ SupplierName : String(80);
+};
+entity CustomerReviews {
+ key CustomerReviewId : String(16);
+ Comment : String(1024);
+ CreationDate : String(24);
+ FirstName : String(40);
+ LastName : String(40);
+ ProductId : String(10);
+ Rating: Integer;
+ Product : association [1] to Products on Product.ProductId = ProductId;
+};
+entity Stocks {
+ key ProductId : String(10);
+ LotSize : Decimal(13,3);
+ MinStock : Decimal(13,3);
+ Quantity : Decimal(13,3);
+ QuantityLessMin : Decimal(13,3);
+ Product : association [1..1] to Products on Product.ProductId = ProductId;
+};
+entity SalesOrderHeaders {
+ key SalesOrderId : String(10);
+ CreatedAt : String(24);
+ CurrencyCode : String(5);
+ CustomerId : String(10);
+ GrossAmount : Decimal(15,3);
+ InvoiceLink : String(200);
+ LifeCycleStatus : String(1);
+ LifeCycleStatusName : String(255);
+ NetAmount : Decimal(15,3);
+ TaxAmount : Decimal(15,3);
+ Customer : association [1..1] to Customers on Customer.CustomerId = CustomerId;
+ SOItems : association [1..*] to SalesOrderItems on SOItems.SalesOrderId = SalesOrderId;
+};
+entity SalesOrderItems {
+ key SalesOrderId : String(10);
+ key ItemNumber : Integer;
+ CurrencyCode : String(5);
+ DeliveryDate : String(24);
+ GrossAmount : Decimal(15,3);
+ NetAmount : Decimal(15,3);
+ ProductId: String(10);
+ Quantity : Decimal(13,3);
+ QuantityUnit : String(3);
+ TaxAmount : Decimal(15,3);
+ Product : association [1..1] to Products on Product.ProductId = ProductId;
+ SalesOrder : association [1] to SalesOrderHeaders on SalesOrder.SalesOrderId = SalesOrderId;
+};
+entity Customers {
+ key CustomerId : String(10);
+ City : String(40);
+ Country : String(3);
+ DateOfBirth : String(24);
+ EmailAddress: String(255);
+ FirstName : String(40);
+ HouseNumber : String(10);
+ LastName : String(40);
+ PhoneNumber : String(30);
+ PostalCode : String(10);
+ Street : String(60);
+};
+};
