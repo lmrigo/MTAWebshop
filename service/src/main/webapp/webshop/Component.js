@@ -27,19 +27,19 @@ sap.ui.define([
 			
 			var sServiceUrl = this.getMetadata().getManifestEntry("sap.app").dataSources.espmDataModel.uri;
 			// var oEspmModel = new sap.ui.model.odata.ODataModel(sServiceUrl, {json: true, loadMetadataAsync: true});
-			var oEspmModel = new sap.ui.model.odata.ODataModel(sServiceUrl, {json: true, loadMetadataAsync: true, defaultOperationMode: "Client"});
-			// var oEspmModel = new sap.ui.model.odata.v4.ODataModel({
-			// 	serviceUrl: sServiceUrl,
-			// 	synchronizationMode : "None",
-			// 	operationMode: "Server",
-			// 	groupId: "$direct",
-			// 	updateGroupId : "$auto",
-			// 	autoExpandSelect : true,
-			// 	groupProperties: {
-			// 		"myAutoGroup" : {"submit" : "Auto"},
-			// 		"myDirectGroup" : {"submit" : "Direct"}
-			// 	}
-			// });
+			// var oEspmModel = new sap.ui.model.odata.ODataModel(sServiceUrl, {json: true, loadMetadataAsync: true, defaultOperationMode: "Client"});
+			var oEspmModel = new sap.ui.model.odata.v4.ODataModel({
+				serviceUrl: sServiceUrl,
+				synchronizationMode : "None",
+				operationMode: "Server",
+				groupId: "$direct",
+				updateGroupId : "$auto",
+				autoExpandSelect : true,
+				groupProperties: {
+					"myAutoGroup" : {"submit" : "Auto"},
+					"myDirectGroup" : {"submit" : "Direct"}
+				}
+			});
 			this.setModel(oEspmModel,"EspmModel");
 
 			var oData ={

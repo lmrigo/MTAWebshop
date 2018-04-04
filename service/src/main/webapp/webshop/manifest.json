@@ -14,10 +14,10 @@
 		"ach": "ach",
 		"dataSources": {
 			"espmDataModel" : {
-				"uri" : "/odata/v2/ESPMService/",
+				"uri" : "/odata/v4/ESPMService/",
 				"type" : "OData",
 				"settings" : {
-					"odataVersion" : "2.0"
+					"odataVersion" : "4.0"
 				}
 			}
 		},
@@ -79,9 +79,6 @@
 			"@i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"uri": "i18n/i18n.properties"
-			},
-			"":{
-				"dataSource" : "espmDataModel"
 			}
 		},
 		"routing": {
