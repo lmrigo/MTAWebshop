@@ -1,4 +1,5 @@
 context ESPM {
+@Comment : 'Products'
 entity Products {
  key ProductId : String(10);
  Category : String(40);
@@ -61,7 +62,7 @@ entity Stocks {
  LotSize : Decimal(13,3);
  MinStock : Decimal(13,3);
  Quantity : Decimal(13,3);
- QuantityLessMin : Decimal(13,3);
+ QuantityLessMin : Boolean;
  Product : association [1..1] to Products on Product.ProductId = ProductId;
 };
 entity SalesOrderHeaders {

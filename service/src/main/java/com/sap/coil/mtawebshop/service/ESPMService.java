@@ -3,7 +3,9 @@ package com.sap.coil.mtawebshop.service;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -54,12 +56,10 @@ public class ESPMService {
 		return conn;
 	}
 
-	private List<EntityData> getEntitySet(QueryRequest queryRequest, String sortCol) {
-		if (sortCol == null) {
-			sortCol = "ProductId";
-		}
-		String fullQualifiedName = queryRequest.getEntityMetadata().getNamespace()+"."+queryRequest.getEntityMetadata().getName();
-		CDSDataSourceHandler dsHandler = DataSourceHandlerFactory.getInstance().getCDSHandler(getConnection(), queryRequest.getEntityMetadata().getNamespace());
+	private List<EntityData> getEntitySet(String namespace, String entityName, String sortCol) {
+		logger.error("AAAAAAAAAAAAA: "  + namespace + " AAAAA " + entityName + " AAAA " + sortCol);
+		CDSDataSourceHandler dsHandler = DataSourceHandlerFactory.getInstance().getCDSHandler(getConnection(), namespace);
+		String fullQualifiedName = namespace+"."+entityName;
 		try {
 			CDSQuery cdsQuery = new CDSSelectQueryBuilder(fullQualifiedName).orderBy(sortCol, false).build();
 			CDSSelectQueryResult cdsSelectQueryResult = dsHandler.executeQuery(cdsQuery);
@@ -69,6 +69,13 @@ public class ESPMService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	private List<EntityData> getEntitySet(QueryRequest queryRequest, String sortCol) {
+		if (sortCol == null) {
+			sortCol = "ProductId";
+		}
+		return this.getEntitySet(queryRequest.getEntityMetadata().getNamespace(), queryRequest.getEntityMetadata().getName(), sortCol);
 	}
 
 	@Query(entity = "SalesOrders", serviceName = "ESPMService")
@@ -125,5 +132,23 @@ public class ESPMService {
 		return queryResponse;
 	}
 
+	
+	private EntityData readEntity(ReadRequest readRequest) {
+		CDSDataSourceHandler dsHandler = DataSourceHandlerFactory.getInstance().getCDSHandler(getConnection(), readRequest.getEntityMetadata().getNamespace());
+		EntityData ed = null;
+		try {
+		  ed = dsHandler.executeRead(readRequest.getEntityMetadata().getName(), readRequest.getKeys(), readRequest.getEntityMetadata().getElementNames());
+		} catch (CDSException e) {
+		  //Handle exception here
+		  e.printStackTrace();
+		}
+		return ed;
+	}
+	
+	@Read(entity = "Products", serviceName = "ESPMService")
+	public ReadResponse getSalesOrder(ReadRequest readRequest) {
+		ReadResponse readResponse = ReadResponse.setSuccess().setData(readEntity(readRequest)).response();
+		return readResponse;
+	}
 
 }
