@@ -1,5 +1,6 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
+	"com/sap/espm/shop/model/format",
 	"com/sap/espm/shop/model/formatter",
 	"sap/ui/core/UIComponent",
 	"sap/ui/core/mvc/ViewType",

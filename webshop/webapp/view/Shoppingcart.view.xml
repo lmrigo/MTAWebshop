@@ -39,7 +39,7 @@
 					<cells>
 						<!-- Picture -->
 						<Image alt="{i18n>xfld.productImage}" class="sapUiSmallMarginTopBottom" decorative="false" densityAware="false" height="3rem"
-							id="productImage" src="/espm-cloud-web/images/{Cart>PictureUrl}" width="3rem"/>
+							id="productImage" src="/images/{Cart>PictureUrl}" width="3rem"/>
 						<!-- Name + Availability -->
 						<ObjectIdentifier id="avalaibilityObjIdent" text="{path: 'StockQuantity', formatter: '.formatter.formatAvailabilityText'}"
 							title="{Cart>Name}"/>

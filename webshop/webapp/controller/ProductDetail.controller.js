@@ -10,8 +10,7 @@ sap.ui.define([
 		
 		formatter: formatter,
 		sortReviewDesc: true,
-		onInit:function()
-		{
+		onInit:function() {
 			var that = this;
 			var oComponent = this.getOwnerComponent();
 			var oModel = oComponent.getModel("Cart");
@@ -35,13 +34,14 @@ sap.ui.define([
 			var bindSplit = bindingObject.split(/\(|\)/);
 			var id = bindSplit[1];
 			var idx = products.findIndex(function(x) {
-				return x.ProductId === id	
+				return x.ProductId === id;
 			});
 			bindingObject = bindSplit[0]+"/"+idx;
 
 			bindingPath = "/"+bindingObject;
 			bindingObject = "EspmModel>/"+bindingObject;
 			this.getView().bindElement(bindingObject);
+
 			this.byId("reviewTable").bindItems({
 				path: bindingObject + "/CustomerReview",
 				template: this.byId("reviewListItem")
@@ -78,22 +78,16 @@ sap.ui.define([
 			var oLink = oEvent.getSource();
 			if (!this._oSupplierCard) {
 				this._initializeSupplierCard();
-			}
-			else{
-				this._oSupplierCard.bindElement({
+			} 
+			this._oSupplierCard.bindElement({
 				path: bindingObject + "/Supplier"
-				
 			});
 			
-			}
 			this._oSupplierCard.openBy(oLink);
 			
 		},
 		_initializeSupplierCard: function() {
 			this._oSupplierCard = sap.ui.xmlfragment("com.sap.espm.shop.view.fragment.SupplierCard",this.getView());
-			this._oSupplierCard.bindElement({
-				path: bindingObject + "/Supplier"
-			});
 			this.getView().addDependent(this._oSupplierCard);
 		},
 		onAddToCartPressed: function(){

@@ -78,8 +78,8 @@ public class ESPMService {
 		return this.getEntitySet(queryRequest.getEntityMetadata().getNamespace(), queryRequest.getEntityMetadata().getName(), sortCol);
 	}
 
-	@Query(entity = "SalesOrders", serviceName = "ESPMService")
-	public QueryResponse getAllSalesOrders(QueryRequest queryRequest) {
+	@Query(entity = "SalesOrderHeaders", serviceName = "ESPMService")
+	public QueryResponse getAllSalesOrderHeaders(QueryRequest queryRequest) {
 		QueryResponse queryResponse =  QueryResponse.setSuccess().setEntityData(getEntitySet(queryRequest, "SalesOrderId")).response();
 		return queryResponse;
 	}
@@ -108,7 +108,7 @@ public class ESPMService {
 		return queryResponse;
 	}
 	
-	@Query(entity = "Reviews", serviceName = "ESPMService")
+	@Query(entity = "CustomerReviews", serviceName = "ESPMService")
 	public QueryResponse getAllReviews(QueryRequest queryRequest) {
 		QueryResponse queryResponse =  QueryResponse.setSuccess().setEntityData(getEntitySet(queryRequest, "CustomerReviewId")).response();
 		return queryResponse;
@@ -146,9 +146,50 @@ public class ESPMService {
 	}
 	
 	@Read(entity = "Products", serviceName = "ESPMService")
-	public ReadResponse getSalesOrder(ReadRequest readRequest) {
+	public ReadResponse getProduct(ReadRequest readRequest) {
 		ReadResponse readResponse = ReadResponse.setSuccess().setData(readEntity(readRequest)).response();
 		return readResponse;
 	}
 
+	@Read(entity = "SalesOrderHeaders", serviceName = "ESPMService")
+	public ReadResponse getProduct(ReadRequest readRequest) {
+		ReadResponse readResponse = ReadResponse.setSuccess().setData(readEntity(readRequest)).response();
+		return readResponse;
+	}
+
+	@Read(entity = "SalesOrderItems", serviceName = "ESPMService")
+	public ReadResponse getProduct(ReadRequest readRequest) {
+		ReadResponse readResponse = ReadResponse.setSuccess().setData(readEntity(readRequest)).response();
+		return readResponse;
+	}
+
+	private EntityData createEntity(CreateRequest createRequest) {    
+		CDSDataSourceHandler dsHandler = DataSourceHandlerFactory.getInstance().getCDSHandler(getConnection(), createRequest.getEntityMetadata().getNamespace());
+		EntityData ed = null;
+		try {
+		  ed = dsHandler.executeInsert(createRequest.getData(), true);
+		} catch (CDSException e) {
+		  //Handle exception here
+		  e.printStackTrace();
+		}
+		return ed;
+	}
+
+	@Create(entity = "SalesOrderHeaders", serviceName = "ESPMService")
+	public CreateResponse createSalesOrderHeader(CreateRequest createRequest) {
+		CreateResponse createResponse = CreateResponse.setSuccess().setData(createEntity(createRequest)).response();
+		return createResponse;
+	}
+	
+	@Create(entity = "SalesOrderItems", serviceName = "ESPMService")
+	public CreateResponse createSalesOrderLineItems(CreateRequest createRequest) {
+		CreateResponse createResponse = CreateResponse.setSuccess().setData(createEntity( createRequest)).response();
+		return createResponse;
+	}
+
+	@Create(entity = "Customers", serviceName = "ESPMService")
+	public CreateResponse createCustomer(CreateRequest createRequest) {
+		CreateResponse createResponse = CreateResponse.setSuccess().setData(createEntity(createRequest)).response();
+		return createResponse;
+	}
 }

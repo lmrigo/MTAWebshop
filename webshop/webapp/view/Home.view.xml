@@ -70,7 +70,7 @@
 								<ObjectIdentifier class="sapMTableContentMargin" id="availabilityObjIdent"
 									text="{EspmModel>Name}"/>
 								<Text class="sapMTableContentMargin" id="desctiptionTxt" maxLines="2" text="{EspmModel>ShortDescription}"/>
-								<ObjectNumber class="sapMTableContentMargin" id="priceObjNumber" number="{path: 'EspmModel>Price', formatter:'.format.formatAmount' }"
+								<ObjectNumber class="sapMTableContentMargin" id="priceObjNumber" number="{path: 'EspmModel>Price', formatter:'.utility.formatAmount' }"
 									unit="{EspmModel>CurrencyCode}"/>
 								<Button class="sapMTableContentMargin" id="btnAddToCart" press="onAddToCartHomePressed" text="{i18n>home.addToCart}"/>
 							</cells>

@@ -43,18 +43,56 @@ sap.ui.define([
 			// this.setModel(oEspmModel,"EspmModel");
 			var that = this;
 			var ajaxUrl = ".." + sServiceUrl;
+			var failFunction = function(data,msg,req) {
+				jQuery.sap.log.error(data,msg,req);
+			};
 			var jEspmModel = new sap.ui.model.json.JSONModel({});
 			this.setModel(jEspmModel,"EspmModel");
-			var entities = ["Products","ProductCategories","Customers","Suppliers","Reviews","Stocks","ProductTexts","SalesOrders","SalesOrderItems"];
+			var entities = ["ProductCategories","Customers","Stocks","ProductTexts","SalesOrderHeaders","SalesOrderItems"];
 			$.each(entities, function(idx, entity){
 				$.get(ajaxUrl + entity)
 				.done(function(data,msg,req){
 					var model = that.getModel("EspmModel");
 					model.setProperty("/"+entity, data.value);
-				}).fail(function(data,msg,req) {
-					jQuery.sap.log.error(data,msg,req);
-				});
+				}).fail(failFunction);
 			});
+			//TODO: load customers, salesorders, and orderitems
+			$.get(ajaxUrl + "Products")
+			.done(function(data,msg,req){
+				var model = that.getModel("EspmModel");
+				model.setProperty("/Products", data.value);
+				
+				$.when($.get(ajaxUrl+"CustomerReviews"),$.get(ajaxUrl + "Suppliers"))
+				.then(function(resReviews,resSuppliers) {
+					var products = model.getProperty("/Products");
+					// Reviews
+					var dataReviews = resReviews[0];
+					$.each(dataReviews.value, function(ri, rev) {
+						var pi = products.findIndex(function(x) {
+							return x.ProductId === rev.ProductId;
+						});
+						if (products[pi].CustomerReview === undefined) {
+							products[pi].CustomerReview = [];
+						}
+						products[pi].CustomerReview.push(rev);
+					});
+					model.setProperty("/CustomerReviews", dataReviews.value);
+					
+					// Suppliers
+					var dataSuppliers = resSuppliers[0];
+					$.each(products, function(pi, prod) {
+						var sup = dataSuppliers.value.find(function(x) {
+							return x.SupplierId === prod.SupplierId;
+						});
+						prod.Supplier = sup;
+					});
+					model.setProperty("/Suppliers", dataSuppliers.value);
+
+					// update Products model
+					model.setProperty("/Products", products);
+				},failFunction);
+				
+			}).fail(failFunction);
 			var oData ={
 				ShoppingCart:[]
 			};

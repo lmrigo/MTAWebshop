@@ -4,8 +4,8 @@
   [ { 
 		"target_table": "ESPM.Products", 
 		"source_data" : { "data_type" : "CSV", "file_name" : "products.csv", "has_header" : true }, 
-		"import_settings" : { "import_columns" : [ "ProductId","Category","CategoryName","Weight","WeightUnit","LongDescription","ShortDescription","Name","PictureUrl","Price","DimensionWidth","DimensionDepth","DimensionHeight","DimensionUnit","CurrencyCode","QuantityUnit" ] }, 
-		"column_mappings" : { "ProductId": "product_id", "Category": "category_id", "CategoryName": "category_id", "Weight": "weight_measure", "WeightUnit": "weight_unit", "LongDescription": "description", "ShortDescription": "description", "Name": "name", "PictureUrl": "web_adress", "Price": "price", "DimensionWidth": "dimensions_width", "DimensionDepth": "dimensions_depth", "DimensionHeight": "dimensions_height", "DimensionUnit": "dimensions_unit", "CurrencyCode": "currency_code", "QuantityUnit": "measure_unit","SupplierId":{"type":"function","name":"range","parameters":{"increment_by":"1","start_with":"0000000001"}} } 
+		"import_settings" : { "import_columns" : [ "ProductId","Category","CategoryName","Weight","WeightUnit","LongDescription","ShortDescription","Name","PictureUrl","Price","DimensionWidth","DimensionDepth","DimensionHeight","DimensionUnit","CurrencyCode","QuantityUnit","SupplierId" ] }, 
+		"column_mappings" : { "ProductId": "product_id", "Category": "category_id", "CategoryName": "category_id", "Weight": "weight_measure", "WeightUnit": "weight_unit", "LongDescription": "description", "ShortDescription": "description", "Name": "name", "PictureUrl": "web_adress", "Price": "price", "DimensionWidth": "dimensions_width", "DimensionDepth": "dimensions_depth", "DimensionHeight": "dimensions_height", "DimensionUnit": "dimensions_unit", "CurrencyCode": "currency_code", "QuantityUnit": "measure_unit","SupplierId":"supplier_id" } 
 	},
 	{ 
 		"target_table": "ESPM.ProductCategories", 

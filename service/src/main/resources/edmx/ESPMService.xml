@@ -11,13 +11,13 @@
             <Property Name="CustomerId" Type="Edm.String" Nullable="true" MaxLength="10" />
             <Property Name="GrossAmount" Type="Edm.Decimal" Nullable="true" Precision="15" Scale="3" />
             <Property Name="InvoiceLink" Type="Edm.String" Nullable="true" MaxLength="200" />
-            <Property Name="LifeCycleStatus" Type="Edm.String" Nullable="false" MaxLength="1" />
-            <Property Name="LifeCycleStatusName" Type="Edm.String" Nullable="false" MaxLength="255" />
+            <Property Name="LifeCycleStatus" Type="Edm.String" Nullable="true" MaxLength="1" />
+            <Property Name="LifeCycleStatusName" Type="Edm.String" Nullable="true" MaxLength="255" />
             <Property Name="NetAmount" Type="Edm.Decimal" Nullable="true" Precision="15" Scale="3" />
             <Property Name="SalesOrderId" Type="Edm.String" Nullable="false" MaxLength="10" />
             <Property Name="TaxAmount" Type="Edm.Decimal" Nullable="true" Precision="15" Scale="3" />
-			<NavigationProperty Name="SalesOrderItems" Type="Collection(ESPM.SalesOrderItem)" Partner="SalesOrder" />
-			<NavigationProperty Name="Customer" Type="Collection(ESPM.Customer)" Partner="SalesOrder" />
+			<NavigationProperty Name="SalesOrderItems" Type="Collection(ESPM.SalesOrderItem)" Partner="SalesOrderHeader" />
+			<NavigationProperty Name="Customer" Type="Collection(ESPM.Customer)" Partner="SalesOrderHeader" />
         </EntityType>
         <EntityType Name="SalesOrderItem">
             <Key>
@@ -34,7 +34,7 @@
             <Property Name="Quantity" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" />
             <Property Name="QuantityUnit" Type="Edm.String" Nullable="true" MaxLength="3" />
             <Property Name="TaxAmount" Type="Edm.Decimal" Nullable="true" Precision="15" Scale="3" />
-			<NavigationProperty Name="SalesOrder" Type="ESPM.SalesOrderHeader" Nullable="false" Partner="SalesOrderItems" />
+			<NavigationProperty Name="SalesOrderHeader" Type="ESPM.SalesOrderHeader" Nullable="false" Partner="SalesOrderItems" />
             <NavigationProperty Name="Product" Type="ESPM.Product" Nullable="false" Partner="SalesOrderItem" />
         </EntityType>
         <EntityType Name="Customer">
@@ -52,7 +52,7 @@
             <Property Name="PhoneNumber" Type="Edm.String" Nullable="true" MaxLength="30" />
             <Property Name="PostalCode" Type="Edm.String" Nullable="true" MaxLength="10" />
             <Property Name="Street" Type="Edm.String" Nullable="true" MaxLength="60" />
-			<NavigationProperty Name="SalesOrder" Type="Collection(ESPM.SalesOrderHeader)" Partner="Customer" />
+			<NavigationProperty Name="SalesOrderHeader" Type="Collection(ESPM.SalesOrderHeader)" Partner="Customer" />
         </EntityType>
 		<EntityType Name="Product">
 		    <Key>
@@ -143,16 +143,16 @@
 		<EntityContainer Name="EntityContainer"
 				p4:LazyLoadingEnabled="true"
 				xmlns:p4="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-				<EntitySet Name="SalesOrders" EntityType="ESPM.SalesOrderHeader">
+				<EntitySet Name="SalesOrderHeaders" EntityType="ESPM.SalesOrderHeader">
 					<NavigationPropertyBinding Path="SalesOrderItems" Target="SalesOrderItems" />
 					<NavigationPropertyBinding Path="Customer" Target="Customers" />
 				</EntitySet>
 				<EntitySet Name="SalesOrderItems" EntityType="ESPM.SalesOrderItem">
-					<NavigationPropertyBinding Path="SalesOrder" Target="SalesOrders" />
+					<NavigationPropertyBinding Path="SalesOrderHeader" Target="SalesOrderHeaders" />
 					<NavigationPropertyBinding Path="Product" Target="Products" />
 				</EntitySet>
 				<EntitySet Name="Customers" EntityType="ESPM.Customer">
-					<NavigationPropertyBinding Path="SalesOrder" Target="SalesOrders" />
+					<NavigationPropertyBinding Path="SalesOrderHeader" Target="SalesOrderHeaders" />
 				</EntitySet>
 				<EntitySet Name="Products" EntityType="ESPM.Product">
 					<NavigationPropertyBinding Path="SalesOrderItem" Target="SalesOrderItems" />
@@ -163,7 +163,7 @@
 				<EntitySet Name="Suppliers" EntityType="ESPM.Supplier">
 					<NavigationPropertyBinding Path="Product" Target="Products" />
 				</EntitySet>
-				<EntitySet Name="Reviews" EntityType="ESPM.CustomerReview">
+				<EntitySet Name="CustomerReviews" EntityType="ESPM.CustomerReview">
 					<NavigationPropertyBinding Path="Product" Target="Products" />
 				</EntitySet>
 				<EntitySet Name="Stocks" EntityType="ESPM.Stock">
