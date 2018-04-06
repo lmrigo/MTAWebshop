@@ -27,7 +27,18 @@ sap.ui.define([
 
 		},
 		_onObjectMatched: function (oEvent) {
+			// adapted due to JSONModel
+			var model = this.getView().getModel("EspmModel");
+			var products = model.getProperty("/Products");
+			
 			bindingObject = oEvent.getParameter("arguments").Productdetails;
+			var bindSplit = bindingObject.split(/\(|\)/);
+			var id = bindSplit[1];
+			var idx = products.findIndex(function(x) {
+				return x.ProductId === id	
+			});
+			bindingObject = bindSplit[0]+"/"+idx;
+
 			bindingPath = "/"+bindingObject;
 			bindingObject = "EspmModel>/"+bindingObject;
 			this.getView().bindElement(bindingObject);

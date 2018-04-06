@@ -73,11 +73,15 @@ sap.ui.define([
 		onBeforeRendering: function() 
 		{
 		},
-		onLineItemPressed: function(event)
-		{
-			var bindingContext = event.getSource().getBindingContextPath();
+		onLineItemPressed: function(event) {
+			// adapted due to JSONModel
+			var model = this.getView().getModel("EspmModel");
+	        var bindingContextPath = event.getSource().getBindingContextPath();
+	        var productContext = model.getProperty(bindingContextPath);
+	        var detailsPath = bindingContextPath.substr(1,bindingContextPath.lastIndexOf("/")-1)+"("+productContext.ProductId+")";
+	        
 			var oRouter = UIComponent.getRouterFor(this);
-			oRouter.navTo("ProductDetail",{Productdetails:bindingContext.substr(1)});
+			oRouter.navTo("ProductDetail",{Productdetails:detailsPath});
 		},
 		onAddToCartHomePressed: function(oEvent){
 			

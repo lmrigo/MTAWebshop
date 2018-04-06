@@ -116,7 +116,7 @@
             <Property Name="MinStock" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" />
             <Property Name="ProductId" Type="Edm.String" Nullable="false" MaxLength="255" />
             <Property Name="Quantity" Type="Edm.Decimal" Nullable="true" Precision="13" Scale="3" />
-            <Property Name="QuantityLessMin" Type="Edm.Boolean" Nullable="true" />
+            <Property Name="QuantityLessMin" Type="Edm.Int32" Nullable="true" />
             <NavigationProperty Name="Product" Type="ESPM.Product" Partner="Stock" />
         </EntityType>
         <EntityType Name="ProductCategory">
