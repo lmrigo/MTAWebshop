@@ -88,7 +88,7 @@
 							<footer> 
 								<Bar> 
 									<contentRight> 
-										<Button id="downloadButtonId" text="{i18n>sales.pdfDownload}" icon="sap-icon://download" press="handleDownload" />
+										<!--<Button id="downloadButtonId" text="{i18n>sales.pdfDownload}" icon="sap-icon://download" press="handleDownload" />-->
 									</contentRight> 
 								</Bar> 
 							</footer>

@@ -74,41 +74,38 @@ sap.ui.define([
 					content: [
 						new sap.ui.layout.form.SimpleForm({
 							content:[
-							        new sap.m.Label({text:oBundle.getText("soPopup.emailAddress")}),
-									new sap.m.Input({
-										liveChange:function(oEvent){
-											emailId = oEvent.getSource().getValue().toLowerCase();
-										}
-									})
-							         
-							      ]
+								new sap.m.Label({text:oBundle.getText("soPopup.emailAddress")}),
+								new sap.m.Input({
+									liveChange:function(oEvent){
+										emailId = oEvent.getSource().getValue().toLowerCase();
+									}
+								})
+							]
 						})
 					],
 					beginButton: new sap.m.Button({
 						text: oBundle.getText("soPopup.salesOrderList"),
 						press: function () {
-							
-							if(emailId){
-								$.ajax({
-						            type: "GET",
-						            async: true,
-						            contentType:"application/json; charset=utf-8",
-						            dataType: "json",
-						            url: "/espm-cloud-web/espm.svc/GetSalesOrderInvoiceByEmail?EmailAddress='"+ emailId +"'&$expand=SalesOrderItems,Customer&$format=json",
-						            success: function(data) {
-						            	
-						            	that.bindMasterPage(data);
-						            },
-						            error: function() {
-						            	MessageToast.show(oBundle.getText("soPopup.errorMessage"));
-						            }
-						        	});
+							if (emailId) {
+								// adapted due to JSONModel
+								var model = that.getView().getModel("EspmModel");
+								var customers = model.getProperty("/Customers");
+								var customer = customers.find(function(x) {
+									return x.EmailAddress === emailId;
+								});
+								var sohs = model.getProperty("/SalesOrderHeaders");
+								var custOrders = sohs.filter(function(x) {
+									return x.CustomerId === customer.CustomerId;
+								});
+								if (custOrders.length > 0) {
+						            that.bindMasterPage(custOrders);
+								} else {
+					            	MessageToast.show(oBundle.getText("soPopup.errorMessage"));
+								}
 								dialog.close();
-							}
-							else{
+							} else {
 								MessageToast.show(oBundle.getText("soPopup.fieldEmpty"));
 							}
-							
 						}
 					}),
 					endButton: new sap.m.Button({
@@ -130,7 +127,6 @@ sap.ui.define([
 			var that = this;
 			
 			var objectTemplate = new sap.m.ObjectListItem({
-				
                 title : "{SalesOrderId}",
                 number : "{GrossAmount}",
                 numberUnit :"{CurrencyCode}",
@@ -138,47 +134,38 @@ sap.ui.define([
                 press : function(event){
                 	that.handleListItemPress(event);
                 },
-                attributes : [new sap.m.ObjectAttribute({
-                          			text : "{Category}"
-                    				}), 
-                    		new sap.m.ObjectAttribute({
-                    				text : "{SupplierName}"
-                    		})],
+                attributes : [
+                	new sap.m.ObjectAttribute({
+                		text : "{Category}"
+                	}),
+                	new sap.m.ObjectAttribute({
+                		text : "{SupplierName}"
+                	})],
                 firstStatus : new sap.m.ObjectStatus({
-                                    text : "{LifeCycleStatusName}"
-                				})
+                	text : "{LifeCycleStatusName}"
+                })
 			});
 		  
 			var jsonModel = new sap.ui.model.json.JSONModel();
-		  	jsonModel.setData(data);
+		  	jsonModel.setData({SalesOrders:data});
 		  	this.getView().setModel(jsonModel);
-			masterList.bindItems("/d/results",objectTemplate);
-			
+			masterList.bindItems("/SalesOrders",objectTemplate);
 		},
 		
 		listUpdateFinished: function(){
-			
 			this.getView().byId("detailPageId").setVisible(false);  
 		},
 		
 		handleListItemPress: function(event){
-			
 			pdfURL = "/espm-cloud-web/CmisRead?objectId="+event.getSource().getBindingContext().getObject("InvoiceLink");
-			
 			this.getView().byId("detailPageId").setVisible(true);
-			
 			var context = event.getSource().getBindingContextPath();
-			
 			this.getView().byId("detailObjectHeader").bindElement(context);
-			
 			var objectStatus = new sap.m.ObjectStatus({
 				text : event.getSource().getFirstStatus().getText()
 			});
-			
 			this.getView().byId("detailObjectHeader").setFirstStatus(objectStatus);
-			
 			this.getView().byId("customerForm").bindElement(context+"/Customer");
-			
 			var oTemplate = new sap.m.ColumnListItem({
 				cells:[
 					new sap.m.ObjectIdentifier({
@@ -195,17 +182,16 @@ sap.ui.define([
 						number : "{path: 'GrossAmount', formatter:'com.sap.espm.shop.model.format.formatAmount'}",
 						unit : "{CurrencyCode}"
 					})
-					]
+				]
 			});
-			
+
 			var oTable = this.getView().byId("lineItemsId");
-			var bindString = context + "/SalesOrderItems/results";
+			var bindString = context + "/SalesOrderItems";
 			oTable.bindItems(bindString, oTemplate);
 
 			if(this.getView().getModel("device").oData.isPhone){
 				this.byId("splitContId").to(this.byId("detailPageId"));
 			}
-			
 		},
 		
 		handleSearch : function (evt) 
@@ -215,11 +201,11 @@ sap.ui.define([
 			var query = evt.getParameter("query"); 
 			if (query && query.length > 0) { 
 				var filter = new sap.ui.model.Filter("SalesOrderId", sap.ui.model.FilterOperator.Contains, query); 
-				filters.push(filter); } // update list binding 
+				filters.push(filter); // update list binding 
+			}
 			var list = this.getView().byId("list"); 
 			var binding = list.getBinding("items"); 
 			binding.filter(filters); 
-			
 		},
 		handleDownload: function(){
 			window.open(pdfURL);
@@ -232,7 +218,6 @@ sap.ui.define([
     		var oMaster = oSplitCont.getMasterPages()[0];
     		oSplitCont.toMaster(oMaster);
 		}
-
 	});
 
 });

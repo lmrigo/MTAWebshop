@@ -263,6 +263,7 @@ sap.ui.define([
 			
 			var sServiceUrl = this.getOwnerComponent().getMetadata().getManifestEntry("sap.app").dataSources.espmDataModel.uri;
 			var ajaxUrl = ".." + sServiceUrl;
+			var espmModel = that.getModel("EspmModel");
 			$.ajax({
 	            type: "POST",
 	            async: true,
@@ -271,6 +272,11 @@ sap.ui.define([
 	            url: ajaxUrl + "Customers",
 	            data : JSON.stringify(customer),
 	            success: function(responsedata) {
+            		// update client model
+					var custs = model.getProperty("/Customers");
+					custs.push(customer);
+					model.setProperty("/Customers", custs);
+            		// proceed
             		customerId = responsedata.CustomerId;
  					that.createSalesOrder();
 	            },
@@ -318,6 +324,7 @@ sap.ui.define([
 			
 			var sServiceUrl = this.getOwnerComponent().getMetadata().getManifestEntry("sap.app").dataSources.espmDataModel.uri;
 			var ajaxUrl = ".." + sServiceUrl;
+			var espmModel = that.getModel("EspmModel");
 			$.ajax({
 	            type: "POST",
 	            async: true,
@@ -326,6 +333,10 @@ sap.ui.define([
 	            url: ajaxUrl + "SalesOrderHeaders",
 	            data : JSON.stringify(SalesOrderHeader),
 	            success: function(resData) {
+	            	// update client model
+					var sohs = model.getProperty("/SalesOrderHeaders");
+					sohs.push(SalesOrderHeader);
+					model.setProperty("/SalesOrderHeaders", sohs);
 	            	// insert Sale Order Line Items
 	            	$.each(SalesOrderHeader.SalesOrderItems, function(idx, soi) {
 	            		$.ajax({
@@ -335,7 +346,12 @@ sap.ui.define([
 				            dataType: "json",
 				            url: ajaxUrl + "SalesOrderItems",
 				            data : JSON.stringify(soi),
-				            success: function() {},
+				            success: function() {
+				            	// update client model
+								var sois = model.getProperty("/SalesOrderItems");
+								sois.push(soi);
+								model.setProperty("/SalesOrderItems", sois);
+				            },
 				            error: function(soiError) {
 		            			jQuery.sap.log.error(soiError);
 				            }
@@ -454,14 +470,17 @@ sap.ui.define([
  					that.byId("newEmailId").setValue(customer.EmailAddress);
  					var custDate = customer.DateOfBirth;
  					if (custDate.includes("Date")) {
- 						custDate = Number(custDate.replace(/\D/g,''));
+ 						custDate = custDate.replace(/\D/g,"");
+ 					}
+ 					if (!Number.isInteger(custDate)) {
+ 						custDate = Number(custDate);
  					}
  					that.byId("birthId").setDateValue(new Date(custDate));
  					that.byId("streetId").setValue(customer.Street);
  					that.byId("cityId").setValue(customer.City);
  					that.byId("countryListId").setSelectedKey(customer.Country);
  					that.byId("postalId").setValue(customer.PostalCode);
- 					that.byId("nameId").setValue(customer.FirstName+" "+customer.LastName);
+ 					that.byId("nameId").setValue(customer.FirstName + " " + customer.LastName);
  
  					that._oExistingForm.setVisible(false);
 					that._oNewForm.setVisible(true);

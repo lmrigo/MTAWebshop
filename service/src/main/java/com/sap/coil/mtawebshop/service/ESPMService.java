@@ -152,13 +152,13 @@ public class ESPMService {
 	}
 
 	@Read(entity = "SalesOrderHeaders", serviceName = "ESPMService")
-	public ReadResponse getProduct(ReadRequest readRequest) {
+	public ReadResponse getSalesOrderHeader(ReadRequest readRequest) {
 		ReadResponse readResponse = ReadResponse.setSuccess().setData(readEntity(readRequest)).response();
 		return readResponse;
 	}
 
 	@Read(entity = "SalesOrderItems", serviceName = "ESPMService")
-	public ReadResponse getProduct(ReadRequest readRequest) {
+	public ReadResponse getSalesOrderItem(ReadRequest readRequest) {
 		ReadResponse readResponse = ReadResponse.setSuccess().setData(readEntity(readRequest)).response();
 		return readResponse;
 	}

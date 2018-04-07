@@ -19,22 +19,22 @@ com.sap.espm.shop.model.format = {
 		}, 
 		
 		date : function (value) {
-			if(value){
-				if (value.constructor === Date) { 
-					var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({pattern: "yyyy-MM-dd"}); 
-					return oDateFormat.format(new Date(value)); 
-					} 
-				else { 
-					if(typeof(value) === "string"){
-						var date = new Date(parseInt(value.split(/[()]/)[1])) ;
-						var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({pattern: "yyyy-MM-dd"}); 
-						return oDateFormat.format(date);
-										
-
+			if (value) {
+				var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({pattern: "yyyy-MM-dd"}); 
+				if (value.constructor === Date) {
+					return oDateFormat.format(new Date(value));
+				} else if (typeof(value) === "string") {
+					var date;
+					if (value.includes("Date")) {
+						date = new Date(parseInt(value.split(/[()]/)[1]));
+					} else {
+						date = new Date(value);
 					}
+					return oDateFormat.format(date);
+				} else {
+					return oDateFormat.format(new Date(value));
 				}
-			}
-			else{
+			} else {
 				return value;
 			}
 			 
