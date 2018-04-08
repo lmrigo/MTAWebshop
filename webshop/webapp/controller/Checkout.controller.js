@@ -21,7 +21,7 @@ sap.ui.define([
 			var oCheckoutTemplate = new sap.m.ColumnListItem({
 				cells:[
 					new sap.m.Image({
-						src : "/images/{PictureUrl}",
+						src : "images/{PictureUrl}",
 						decorative : false,
 						densityAware : false,
 						height : "3rem",
@@ -215,7 +215,7 @@ sap.ui.define([
 				sap.ui.getCore().byId("country").setText(this.byId("countryListId").getSelectedKey());
 				sap.ui.getCore().byId("cardOwner").setText(this.byId("nameId").getValue());
 				sap.ui.getCore().byId("cardNumber").setText(this.byId("numberId").getValue());
-				sap.ui.getCore().byId("cardImg").setSrc("Images/" + this.cardType + ".png");
+				sap.ui.getCore().byId("cardImg").setSrc("images/" + this.cardType + ".png");
 				
 				this._oNavContainer.to(this._oWizardReviewPage);
 			}

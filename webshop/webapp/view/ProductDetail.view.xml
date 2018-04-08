@@ -7,7 +7,7 @@
 						press="onShoppingCartPressed" text="{TotalQuantity}" tooltip="{i18n>detail.cart}"/>
 				</headerContent>
 				<content>
-					<ObjectHeader backgroundDesign="Translucent" icon="/images/{EspmModel>PictureUrl}" iconActive="true" iconAlt="{i18n>xfld.productImage}" iconDensityAware="false"
+					<ObjectHeader backgroundDesign="Translucent" icon="images/{EspmModel>PictureUrl}" iconActive="true" iconAlt="{i18n>xfld.productImage}" iconDensityAware="false"
 						iconPress="onImagePressed" id="pd_header" markFavorite="{IsFavoriteOfCurrentUser}"
 						number="{path : 'EspmModel>Price', formatter:'.formatter.formatAmount'}" numberUnit="{EspmModel>CurrencyCode}" responsive="true" showMarkers="true"
 						title="{EspmModel>Name}">

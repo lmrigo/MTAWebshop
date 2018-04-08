@@ -20,7 +20,7 @@ sap.ui.define([
 			var oTemplate = new sap.m.ColumnListItem({
 				cells:[
 					new sap.m.Image({
-						src : "/images/{PictureUrl}",
+						src : "images/{PictureUrl}",
 						decorative : false,
 						densityAware : false,
 						height : "3rem",
