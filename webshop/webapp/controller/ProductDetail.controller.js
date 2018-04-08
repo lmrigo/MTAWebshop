@@ -21,6 +21,10 @@ sap.ui.define([
 			
 			var oRouter = UIComponent.getRouterFor(this);
 			oRouter.getRoute("ProductDetail").attachPatternMatched(this._onObjectMatched, this);
+			// init Comment properties
+			var espm = oComponent.getModel("EspmModel");
+			espm.setProperty("Rating", 0);
+			espm.setProperty("Comment", "");
 			
 			this._oReviewDialog = null;
 
@@ -36,14 +40,27 @@ sap.ui.define([
 			var idx = products.findIndex(function(x) {
 				return x.ProductId === id;
 			});
-			bindingObject = bindSplit[0]+"/"+idx;
+			bindingObject = bindSplit[0] + "/" + idx;
 
-			bindingPath = "/"+bindingObject;
-			bindingObject = "EspmModel>/"+bindingObject;
+			bindingPath = "/" + bindingObject;
+			bindingObject = "EspmModel>/" + bindingObject;
+			
+			// get Supplier Name
+			var supId = products[idx].SupplierId;
+			var suppliers = model.getProperty("/Suppliers");
+			var sup = suppliers.find(function(x) {
+				return x.SupplierId === supId;
+			});
+			products[idx].SupplierName = (sup === undefined ? "ITelo" : sup.SupplierName);
+			// init reviews property if it doesn't have
+			if (products[idx].CustomerReviews === undefined) {
+				products[idx].CustomerReviews = [];
+			}
+
+			// bind
 			this.getView().bindElement(bindingObject);
-
 			this.byId("reviewTable").bindItems({
-				path: bindingObject + "/CustomerReview",
+				path: bindingObject + "/CustomerReviews",
 				template: this.byId("reviewListItem")
 			});
 			var oView = this.getView();
@@ -119,6 +136,7 @@ sap.ui.define([
 			this._oReviewDialog.open();
 		},
 		onReviewDialogOKPressed: function(oEvent) {
+			// adapted due to JSONModel
 			var that = this;
 			var oBundle = this.getView().getModel('i18n').getResourceBundle();
 			
@@ -127,41 +145,58 @@ sap.ui.define([
 			var sReviewComment = sap.ui.getCore().byId("textArea", "reviewDialog").getValue();
 			var firstName = sap.ui.getCore().byId("firstNameId", "reviewDialog").getValue();
 			var lastName = sap.ui.getCore().byId("lastNameId", "reviewDialog").getValue();
-			var createtionDate = new Date().getTime(); 
+			var creationDate = new Date().getTime(); 
 			var prodId = this.byId("productId").getText();
 			
-			var sFunctionImportReviewParam = "ProductId='" + prodId + "'&FirstName='" + firstName + "'&LastName='" + lastName + "'&Rating='" + iRatingCount + "'&CreationDate='" + createtionDate + "'&Comment='" + sReviewComment + "'";
-		
-			var aParams = [];
-			aParams.push(sFunctionImportReviewParam);
-			
-			var oModel = this.getView().getModel("EspmModel");
-			
-			oModel.setHeaders({  
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        	});
-			oModel.read('/CreateCustomerReview',null, aParams , false, function(data)
-			{
- 				if(data){
- 					sap.m.MessageToast.show(oBundle.getText("detail.reviewSuccess"));
-					// Clear review dialog
+			var newReview = {
+				"CustomerReviewId": this.randomIdGenerator(),
+				"ProductId": prodId,
+				"FirstName": firstName,
+				"LastName": lastName,
+				"Rating": iRatingCount,
+				"CreationDate": "/Date(" + creationDate + ")/",
+				"Comment": sReviewComment
+			};
+
+			var sServiceUrl = this.getOwnerComponent().getMetadata().getManifestEntry("sap.app").dataSources.espmDataModel.uri;
+			var ajaxUrl = ".." + sServiceUrl;
+			var espmModel = this.getView().getModel("EspmModel");
+			$.ajax({
+	            type: "POST",
+	            async: true,
+	            contentType:"application/json; charset=utf-8",
+	            dataType: "json",
+	            url: ajaxUrl + "CustomerReviews",
+	            data : JSON.stringify(newReview),
+	            success: function(responsedata) {
+	            	// update client model
+					// - clear dialog model
+					espmModel.setProperty("Rating", 0);
+					espmModel.setProperty("Comment", "");
+            		// - update main client model
+					var reviews = espmModel.getProperty("/CustomerReviews");
+					reviews.push(newReview);
+					espmModel.setProperty("/CustomerReviews", reviews);
+					// - update view's client model, reviews table 
+					var fullPath = that.byId("reviewTable").getBinding("items").sPath;
+					var productPath = fullPath.substr(0, fullPath.lastIndexOf("/"));
+					var product = espmModel.getProperty(productPath);
+					product.CustomerReviews.push(newReview);
+
+					// proceed
+					sap.m.MessageToast.show(oBundle.getText("detail.reviewSuccess"));
 					that.clearReviewDialogForm();
- 					
- 				}
- 			},function(){
-				sap.m.MessageToast.show(oBundle.getText("detail.reviewFailed")); 
- 			});
-			oModel.refresh(true);
-			
+				}, error: function() {
+					sap.m.MessageToast.show(oBundle.getText("detail.reviewFailed"));
+				}
+			});
+
+			// refresh reviews table
 			var oView = this.getView();
 			var oTable = oView.byId("reviewTable");
-
 			var oBinding = oTable.getBinding("items");
-			
 			var sorters = new sap.ui.model.Sorter("CreationDate", true);
 			oBinding.sort(sorters);
-			
 		},
 
 		// Close the Review Dialog
@@ -191,10 +226,9 @@ sap.ui.define([
 			var firstName = sap.ui.getCore().byId("firstNameId", "reviewDialog").getValue();
 			var lastName = sap.ui.getCore().byId("lastNameId", "reviewDialog").getValue();
 
-			if(iRatingCount > 0 && sReviewComment !== "" && firstName !== "" && lastName !== ""){
+			if (iRatingCount > 0 && sReviewComment !== "" && firstName !== "" && lastName !== "") {
 				sap.ui.getCore().byId("btnOK", "reviewDialog").setEnabled(true);
-			}
-			else{
+			} else {
 				sap.ui.getCore().byId("btnOK", "reviewDialog").setEnabled(false);
 			}
 		},
@@ -204,11 +238,13 @@ sap.ui.define([
 			var aDescending = this.sortReviewDesc;
 			this.sortReviewDesc = !this.sortReviewDesc;
 
-			aSorters.push(new sap.ui.model.Sorter('Rating', aDescending));
+			aSorters.push(new sap.ui.model.Sorter("Rating", aDescending));
 			oBinding.sort(aSorters);
 
-		}
-		
+		},
+		randomIdGenerator: function() {
+			return Math.random().toString(36).replace(/\D+/g, "").concat("0000000000").substr(0, 10);
+ 		}
 
 	});
 

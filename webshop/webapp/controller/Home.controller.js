@@ -65,10 +65,6 @@ sap.ui.define([
 		},
 		onAfterRendering: function() 
 		{
-			var oComponent = this.getOwnerComponent();
-			var espm = oComponent.getModel("EspmModel");
-			var oTable = this.getView().byId("catalogTable");
-			var binding = oTable.getBinding("items");
 		},
 		onBeforeRendering: function() 
 		{

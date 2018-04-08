@@ -48,7 +48,7 @@ entity Suppliers {
  SupplierName : String(80);
 };
 entity CustomerReviews {
- key CustomerReviewId : String(16);
+ key CustomerReviewId : String(10);
  Comment : String(1024);
  CreationDate : String(24);
  FirstName : String(40);

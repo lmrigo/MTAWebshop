@@ -71,10 +71,10 @@ sap.ui.define([
 						var pi = products.findIndex(function(x) {
 							return x.ProductId === rev.ProductId;
 						});
-						if (products[pi].CustomerReview === undefined) {
-							products[pi].CustomerReview = [];
+						if (products[pi].CustomerReviews === undefined) {
+							products[pi].CustomerReviews = [];
 						}
-						products[pi].CustomerReview.push(rev);
+						products[pi].CustomerReviews.push(rev);
 					});
 					model.setProperty("/CustomerReviews", dataReviews.value);
 					

@@ -273,9 +273,9 @@ sap.ui.define([
 	            data : JSON.stringify(customer),
 	            success: function(responsedata) {
             		// update client model
-					var custs = model.getProperty("/Customers");
+					var custs = espmModel.getProperty("/Customers");
 					custs.push(customer);
-					model.setProperty("/Customers", custs);
+					espmModel.setProperty("/Customers", custs);
             		// proceed
             		customerId = responsedata.CustomerId;
  					that.createSalesOrder();
@@ -334,9 +334,9 @@ sap.ui.define([
 	            data : JSON.stringify(SalesOrderHeader),
 	            success: function(resData) {
 	            	// update client model
-					var sohs = model.getProperty("/SalesOrderHeaders");
+					var sohs = espmModel.getProperty("/SalesOrderHeaders");
 					sohs.push(SalesOrderHeader);
-					model.setProperty("/SalesOrderHeaders", sohs);
+					espmModel.setProperty("/SalesOrderHeaders", sohs);
 	            	// insert Sale Order Line Items
 	            	$.each(SalesOrderHeader.SalesOrderItems, function(idx, soi) {
 	            		$.ajax({
@@ -348,9 +348,9 @@ sap.ui.define([
 				            data : JSON.stringify(soi),
 				            success: function() {
 				            	// update client model
-								var sois = model.getProperty("/SalesOrderItems");
+								var sois = espmModel.getProperty("/SalesOrderItems");
 								sois.push(soi);
-								model.setProperty("/SalesOrderItems", sois);
+								espmModel.setProperty("/SalesOrderItems", sois);
 				            },
 				            error: function(soiError) {
 		            			jQuery.sap.log.error(soiError);

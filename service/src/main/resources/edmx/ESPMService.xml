@@ -77,7 +77,7 @@
 		    <Property Name="WeightUnit" Type="Edm.String" Nullable="true" MaxLength="3" />
             <NavigationProperty Name="SalesOrderItem" Type="ESPM.SalesOrderItem" Partner="Product" />
             <NavigationProperty Name="Supplier" Type="ESPM.Supplier" Partner="Product" />
-            <NavigationProperty Name="Review" Type="ESPM.CustomerReview" Partner="Product" />
+            <NavigationProperty Name="CustomerReviews" Type="ESPM.CustomerReview" Partner="Product" />
             <NavigationProperty Name="Stock" Type="ESPM.Stock" Partner="Product" />
 		</EntityType>
         <EntityType Name="Supplier">
@@ -101,12 +101,12 @@
             </Key>
             <Property Name="Comment" Type="Edm.String" Nullable="true" MaxLength="1024" />
             <Property Name="CreationDate" Type="Edm.String" Nullable="true" />
-            <Property Name="CustomerReviewId" Type="Edm.String" Nullable="false" MaxLength="16" />
+            <Property Name="CustomerReviewId" Type="Edm.String" Nullable="false" MaxLength="10" />
             <Property Name="FirstName" Type="Edm.String" Nullable="true" MaxLength="40" />
             <Property Name="LastName" Type="Edm.String" Nullable="true" MaxLength="40" />
             <Property Name="ProductId" Type="Edm.String" Nullable="true" MaxLength="10" />
             <Property Name="Rating" Type="Edm.Int32" Nullable="true" />
-            <NavigationProperty Name="Product" Type="ESPM.Product" Partner="Review" />
+            <NavigationProperty Name="Product" Type="ESPM.Product" Partner="CustomerReviews" />
         </EntityType>
         <EntityType Name="Stock">
             <Key>
@@ -157,7 +157,7 @@
 				<EntitySet Name="Products" EntityType="ESPM.Product">
 					<NavigationPropertyBinding Path="SalesOrderItem" Target="SalesOrderItems" />
 					<NavigationPropertyBinding Path="Supplier" Target="Suppliers" />
-					<NavigationPropertyBinding Path="Review" Target="Reviews" />
+					<NavigationPropertyBinding Path="CustomerReview" Target="CustomerReviews" />
 					<NavigationPropertyBinding Path="Stock" Target="Stocks" />
 				</EntitySet>
 				<EntitySet Name="Suppliers" EntityType="ESPM.Supplier">

@@ -192,4 +192,10 @@ public class ESPMService {
 		CreateResponse createResponse = CreateResponse.setSuccess().setData(createEntity(createRequest)).response();
 		return createResponse;
 	}
+
+	@Create(entity = "CustomerReviews", serviceName = "ESPMService")
+	public CreateResponse createCustomerReview(CreateRequest createRequest) {
+		CreateResponse createResponse = CreateResponse.setSuccess().setData(createEntity(createRequest)).response();
+		return createResponse;
+	}
 }
