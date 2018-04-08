@@ -243,11 +243,11 @@ sap.ui.define([
 			
 		},
 		createCustomer: function(){
-			var oBundle = this.getView().getModel('i18n').getResourceBundle();
+			var oBundle = this.getView().getModel("i18n").getResourceBundle();
 			var that = this;
 			var date = this.byId("birthId").getValue();
 			var utctime = Date.parse(date);		
-			date = "/Date("+utctime+")/";
+			date = "/Date(" + utctime + ")/";
 			var customer = {
 				"EmailAddress":this.byId("newEmailId").getValue().toLowerCase(),
 				"LastName":this.byId("lastnameId").getValue(),
@@ -263,7 +263,7 @@ sap.ui.define([
 			
 			var sServiceUrl = this.getOwnerComponent().getMetadata().getManifestEntry("sap.app").dataSources.espmDataModel.uri;
 			var ajaxUrl = ".." + sServiceUrl;
-			var espmModel = that.getModel("EspmModel");
+			var espmModel = this.getView().getModel("EspmModel");
 			$.ajax({
 	            type: "POST",
 	            async: true,
@@ -324,7 +324,7 @@ sap.ui.define([
 			
 			var sServiceUrl = this.getOwnerComponent().getMetadata().getManifestEntry("sap.app").dataSources.espmDataModel.uri;
 			var ajaxUrl = ".." + sServiceUrl;
-			var espmModel = that.getModel("EspmModel");
+			var espmModel = this.getView().getModel("EspmModel");
 			$.ajax({
 	            type: "POST",
 	            async: true,
@@ -335,6 +335,11 @@ sap.ui.define([
 	            success: function(resData) {
 	            	// update client model
 					var sohs = espmModel.getProperty("/SalesOrderHeaders");
+					var customers = espmModel.getProperty("/Customers");
+					var customer = customers.find(function(x) {
+						return x.CustomerId === SalesOrderHeader.CustomerId;
+					});
+					SalesOrderHeader.Customer = customer;
 					sohs.push(SalesOrderHeader);
 					espmModel.setProperty("/SalesOrderHeaders", sohs);
 	            	// insert Sale Order Line Items
@@ -402,15 +407,12 @@ sap.ui.define([
 			customerId = "";
 			var buttonIndex = that.getView().byId("radioButtonGroupId").getSelectedIndex();
 			var email;
-			// var sFunctionImportEmailParam;
 			if (buttonIndex === 1) {
 				if(that.byId("newEmailId").getValue().length !== 0){
-					// sFunctionImportEmailParam = "EmailAddress='" + that.byId("newEmailId").getValue().toLowerCase() + "'";
 					email = that.byId("newEmailId").getValue().toLowerCase();
 				}
 			} else {
 				if (that.byId("existingEmailId").getValue().length !== 0) {
-					// sFunctionImportEmailParam = "EmailAddress='" + this.byId("existingEmailId").getValue().toLowerCase() + "'";
 					email = this.byId("existingEmailId").getValue().toLowerCase();
 				}
 			}

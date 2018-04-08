@@ -93,14 +93,18 @@ sap.ui.define([
 								var customer = customers.find(function(x) {
 									return x.EmailAddress === emailId;
 								});
-								var sohs = model.getProperty("/SalesOrderHeaders");
-								var custOrders = sohs.filter(function(x) {
-									return x.CustomerId === customer.CustomerId;
-								});
-								if (custOrders.length > 0) {
-						            that.bindMasterPage(custOrders);
+								if (customer === undefined) {
+									MessageToast.show(oBundle.getText("soPopup.errorMessage"));
 								} else {
-					            	MessageToast.show(oBundle.getText("soPopup.errorMessage"));
+									var sohs = model.getProperty("/SalesOrderHeaders");
+									var custOrders = sohs.filter(function(x) {
+										return x.CustomerId === customer.CustomerId;
+									});
+									if (custOrders.length > 0) {
+							            that.bindMasterPage(custOrders);
+									} else {
+						            	MessageToast.show(oBundle.getText("soPopup.errorMessage"));
+									}
 								}
 								dialog.close();
 							} else {
