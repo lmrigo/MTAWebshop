@@ -42,9 +42,6 @@ modules:
          name: service_api
          url: ~{url}
 
-
- 
-
 resources:
  - name: hdi_hdb
    parameters:
