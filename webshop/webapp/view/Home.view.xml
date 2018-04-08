@@ -16,7 +16,7 @@
 						buttonOnly="true" icon="sap-icon://camera" iconOnly="true">
 					</u:FileUploader>
 					<Button icon="sap-icon://my-sales-order" id="btnOrdersId" press="onOrdersButtonPressed" tooltip="{i18n>home.salesOrder}"/>
-					<Button icon="sap-icon://cart" id="btnProductListHeader" press="onShoppingCartPressed" text="{TotalQunatity}"
+					<Button icon="sap-icon://cart" id="btnProductListHeader" press="onShoppingCartPressed" text="{EspmModel>/TotalQuantity}"
 						tooltip="{i18n>home.cart}"/>
 				</headerContent>
 				<content>

@@ -26,12 +26,14 @@ sap.ui.define([
 			var oComponent = this.getOwnerComponent();
 			var oModel = oComponent.getModel("Cart");
 			var espm = oComponent.getModel("EspmModel");
+			espm.setProperty("TotalQuantity", 0);
 			var that = this;
 			this.getView().addEventDelegate({
 				onAfterShow: function() {
 					var count = formatter.onAddCountToCart(oModel);
 					that.getView().byId("btnProductListHeader").setText(count);
-				}});
+				}
+			});
 			
 			this.mGroupFunctions = {
 				Category: function(oContext) {
@@ -80,21 +82,17 @@ sap.ui.define([
 			oRouter.navTo("ProductDetail",{Productdetails:detailsPath});
 		},
 		onAddToCartHomePressed: function(oEvent){
-			
-			////get binded model
+			// get binded model
 			var oModel = this.getView().getModel("Cart");
 			var model = this.getView().getModel("EspmModel");
-	        var path = oEvent.getSource().getParent().getBindingContextPath();
-	        var productContext = model.getProperty(path);
-	        formatter.onAddToCart(oModel,productContext);
-	        this.getView().byId("btnProductListHeader").setText(formatter.onAddCountToCart(oModel));
-
+			var path = oEvent.getSource().getParent().getBindingContextPath();
+			var productContext = model.getProperty(path);
+			formatter.onAddToCart(oModel,productContext);
+			this.getView().byId("btnProductListHeader").setText(formatter.onAddCountToCart(oModel));
 		},
 		onShoppingCartPressed: function(){
-			
 			var oRouter = UIComponent.getRouterFor(this);
 			oRouter.navTo("Shoppingcart");
-			
 		},
 		/// Table Operations
 		onSearchPressed : function(event){

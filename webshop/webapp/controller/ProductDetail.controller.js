@@ -17,7 +17,8 @@ sap.ui.define([
 		  	this.getView().addEventDelegate({
 				onAfterShow: function() {
 					 that.getView().byId("btnProductHeader").setText(formatter.onAddCountToCart(oModel));
-				}});
+				}
+		  	});
 			
 			var oRouter = UIComponent.getRouterFor(this);
 			oRouter.getRoute("ProductDetail").attachPatternMatched(this._onObjectMatched, this);
