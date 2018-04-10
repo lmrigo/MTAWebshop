@@ -57,7 +57,6 @@ public class ESPMService {
 	}
 
 	private List<EntityData> getEntitySet(String namespace, String entityName, String sortCol) {
-		logger.error("AAAAAAAAAAAAA: "  + namespace + " AAAAA " + entityName + " AAAA " + sortCol);
 		CDSDataSourceHandler dsHandler = DataSourceHandlerFactory.getInstance().getCDSHandler(getConnection(), namespace);
 		String fullQualifiedName = namespace+"."+entityName;
 		try {

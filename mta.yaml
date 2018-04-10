@@ -13,8 +13,8 @@ modules:
    type: java
    path: service
    parameters:
-      memory: 512M
-      disk-quota: 512M
+      memory: 256M
+      disk-quota: 256M
    provides:
     - name: service_api
       properties:
